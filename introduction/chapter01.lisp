@@ -3,28 +3,28 @@
 
 ;;; 1.2 Functions on Numbers
 
-(+ 3 4)
+(+ 3 4)  ;; 7
 
-(abs -4)
+(abs -4)  ;; 4
 
 ;;; 1.3 Three kinds of numbers
 
 ;; integers, floating point,  ratios
 2/3
 3/4
-(/ 3 6)
-(/ 3 6.0)
+(/ 3 6)  ;; 1/2
+(/ 3 6.0)   ;; 0.50
 
 ;; 1.4 Order of inputs is important
-(/ 2 8)
-(/ 8 2)
+(/ 2 8)  ;; 1/4
+(/ 8 2)  ;; 4
 
-(/ 10 8)
+(/ 10 8)  ;; 5/4
 
 
 ;;; Exercise
 
-;; 1.1 Here are some function boxes with inputs and outputs. I
+;; 1.1 Here are some function boxes with inputs and outputs.
 
 (+ 6 7)  ;; 13
 (* 3 4)  ;; 12
@@ -32,7 +32,7 @@
 (- 4 3)  ;; 1
 (abs -3) ;; 3
 
-;; more
+;; more - negatives and ratios
 (/ -8 6) ;; -4/3
 (/ 15 9) ;; 5/3
 (* 8 1)  ;; 8
@@ -46,35 +46,37 @@
 ;;; 1.6 The Special Symbols 'T and 'NIL
 
 ;; True and False
-t   ;; for true
-nil ;; for false
+t   ;; T for true
+nil ;; NIL for false
 
 ;; Que cheesy Lisp joke
+;; “Hey, Jack, want to go to dinner?” “NIL. I just ate.”
 
 
 ;;; 1.7 Some simple predicates
 
-(numberp 2)
-(numberp nil)
+(numberp 2)  ;; T
+(numberp 'dog) ;; NIL
 
-(symbolp 'cat)
-(symbolp 5)
+(symbolp 'cat) ;; T
+(symbolp 42)    ;; NIL
 
-(zerop 35)
-(zerop 0)
+(zerop 35)  ;; NIL
+(zerop 0)   ;; T
 
-(oddp 1)
-(evenp 4)
+(oddp 28)   ;; NIL
+(oddp 27)   ;; T
+(evenp 27)  ;; NIL
 
-(< 2 3.0)
-(> 2 3)
+(< 2 3.0)  ;; T
+(> 2 3)  ;; NIL
 
 
-;;; 1.8 The Equal predicate
+;;; 1.8 The EQUAL predicate
 
-(equal 'cat 'mouse)
-(equal 'cat 'cat)
-(equal 3 3)
+(equal 'cat 'mouse)  ;; NIL
+(equal 'cat 'cat)   ;; T
+(equal 3 3)  ;; T
 
 
 ;;; Exercise
@@ -87,6 +89,7 @@ nil ;; for false
 (numberp 'twelve)  ;; 'NIL
 (< -4 -3)  ;; 'T
 (zerop 0)  ;; 'T
+(equal 9 -9) ;; NIL
 
 
 ;;; 1.9 Putting functions together
@@ -95,22 +98,25 @@ nil ;; for false
 (defun add1 (x)
   (+ x 1))
 
-(add1 5)
+(add1 5)  ;; 6
+
 
 ;; 1.9.2 Defining ADD2
 
 (defun add2 (x)
   (add1 (add1 x)))
 
-(add2 5)
+(add2 5)  ;; 7
+
 
 ;; 1.9.3 Defining TWOP
 
 (defun twop (n)
   (equal 2 n))
 
-(twop 2)
-(twop 3)
+(twop 3)  ;; NIL
+(twop 2)  ;; T
+
 
 
 ;;; Exercises
@@ -119,15 +125,17 @@ nil ;; for false
 (defun sub2 (n)
   (- n 2))
 
-(sub2 5)
+(sub2 5)  ;; 3
+(sub2 0)  ;; -2
 
 
 ;; 1.5 Show how to write TWOP in terms of ZEROP and SUB2
 (defun twop-2 (n)
   (zerop (sub2 n)))
 
-(twop-2 2)
-(twop-2 3)
+(twop-2 2)  ;; T
+(twop-2 3)  ;; NIL
+(twop-2 0)  ;; NIL
 
 ;;1.6 The HALF function returns a number that is one-half of its input. Show
 ;;     how to define HALF two different way
@@ -137,32 +145,38 @@ nil ;; for false
 (defun half-2 (n)
   (* 1/2 n))
 
-(half 8)
-(half-2 8)
+(half 8)   ;; 4
+(half-2 8) ;; 4
 
 ;; 1.7 Write a MULTI-DIGIT-P predicate that returns true if its input is
 ;;     greater than 9
 (defun multi-digit-p (n)
   (> n 9))
 
-(multi-digit-p 5)
-(multi-digit-p 10)
-(multi-digit-p 15)
+(multi-digit-p 5)  ;; NIL
+(multi-digit-p 9)  ;; NIL
+(multi-digit-p 10)  ;; T
+(multi-digit-p 15)  ;; T
 
 ;; 1.8. What does this function do to a number?
 (defun negative (n)
   (- 0 n))
 
-(negative 5)
+;; Makes it negative
+
+(negative 5)  ;; -5
+(negative 0)  ;; 0
+(negative -5)  ;; 5
 
 
 ;; 1.9.4 Defining ONEMOREP
 (defun onemorep (x y)
   (equal x (add1 y)))
 
-(onemorep 7 6)
-(onemorep 7 3)
-(onemorep 7 7)
+(onemorep 7 6)  ;; T
+(onemorep 7 3)  ;; NIL
+(onemorep 7 7)  ;; Nil
+(onemorep -4 -5) ;; T
 
 
 ;;; Exercises
@@ -174,24 +188,25 @@ nil ;; for false
 (defun twomorep (n m)
   (equal n (add2 m)))
 
-(twomorep 4 2)
-(twomorep 2 4)
+(twomorep 4 2)  ;; T
+(twomorep 2 4)  ;; NIL
+(twomorep 4 1)  ;; NIL
 
 ;; 1.10. Find a way to write the TWOMOREP predicate using SUB2 instead of
 ;;       ADD2.
 (defun twomorep-2 (n m)
   (equal (sub2 n) m))
 
-(twomorep-2 4 2)
-(twomorep-2 2 4)
+(twomorep-2 4 2)  ;; T
+(twomorep-2 2 4)  ;; NIL
 
 ;; 1.11. The average of two numbers is half their sum. Write the AVERAGE
 ;;       function.
 (defun average (n m)
   (half (+ n m)))
 
-(average 2 4)
-(average 3 7)
+(average 2 4)  ;; 3
+(average 3 7)  ;; 5
 
 ;; 1.12. Write a MORE-THAN-HALF-P predicate that returns T if its first input
 ;;       is more than half of its second input.
@@ -199,9 +214,9 @@ nil ;; for false
 (defun more-than-half-p (n m)
   (> (half n) m))
 
-(more-than-half-p 3 7)
-(more-than-half-p 6 3)
-(more-than-half-p 7 3)
+(more-than-half-p 3 7)  ;; NIL
+(more-than-half-p 6 3)  ;; NIL
+(more-than-half-p 7 3)  ;; T
 
 
 ;; 1.13. The following function returns the same result no matter what its input.
@@ -212,12 +227,16 @@ nil ;; for false
 
 ;; It always return 'T because the result of 'numberp is always a symbol
 
+(xx 5)  ;; T
+(xx 5.0) ;; T
+(xx '5)  ;; T
+
 
 ;;; 1.10 The not predicate
 
-(not t)
-(not nil)
-(not 'fred)
+(not t)   ;; NIL
+(not nil) ;; T
+(not 'fred)  ;; NIL
 
 
 ;;; Exercise
@@ -233,8 +252,8 @@ nil ;; for false
 (defun not-equal (x y)
   (not (equal x y)))
 
-(not-equal 'pink 'green)
-(not-equal 'pink 'pink)
+(not-equal 'pink 'green)  ;; T
+(not-equal 'pink 'pink)  ;; NIL
 
 
 ;;; Exercises
@@ -245,9 +264,9 @@ nil ;; for false
 (defun not-onep (n)
   (not (equal 1 n)))
 
-(not-onep 1)
-(not-onep 2)
-(not-onep 0)
+(not-onep 1)  ;; NIL
+(not-onep 2)  ;; T
+(not-onep 0)  ;; T
 
 
 ;; 1.16. Write the predicate NOT-PLUSP that returns T if its input is not greater
@@ -267,8 +286,8 @@ nil ;; for false
 (defun evenp-1 (n)
   (not (oddp n)))
 
-(evenp-1 4)
-(evenp-1 3)
+(evenp-1 4)  ;; T
+(evenp-1 3)  ;; NIL
 
 
 ;; 1.18. Under what condition does this predicate function return T?
@@ -278,9 +297,9 @@ nil ;; for false
 
 ;; When N is negative 2
 
-(negative-two-p -2)
-(negative-two-p -1)
-(negative-two-p 2)
+(negative-two-p -2)  ;; T
+(negative-two-p -1)  ;; NIL
+(negative-two-p 2)   ;; NIL
 
 
 ;; 1.19. What result does the function below produce when given the input
@@ -297,15 +316,16 @@ nil ;; for false
 ;; it passes only'NIL and 'T through, it changes everything else to 'T
 
 
+;;;*********************************************
 ;;; 1.12 Number of Inputs to a Function
 
 ;; variable number
-(* 2 3 5)
-(- 50 3 4)
-(/ 120 2 5)
+(* 2 3 5)    ;; 30
+(- 50 3 4)   ;; 43
+(/ 120 2 5)  ;; 12
 
-(- 4)
-(/ 4.0)
+(- 4)   ;; -4
+(/ 4.0) ;; 0.25
 
 
 ;;; 1.13 Errors
@@ -334,6 +354,7 @@ nil ;; for false
 ;;   (symbolp (not n m)))
 
 
+;;;***********************************************
 ;;; Review Exercises
 
 ;; 1.22. Are all predicates functions? Are all functions predicates?

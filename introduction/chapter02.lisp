@@ -2,6 +2,7 @@
 ;;; Chapter 2 - Lists
 
 
+;;;*********************************************
 ;;; Section 2.2 - What Do Lists Look Like.
 
 '(red green blue)
@@ -26,7 +27,8 @@
 ;; TO    BE    OR   NOT   TO   BE
 
 
-;; Section - 2.3 Lists of one element
+;;;*******************************************
+;;; Section - 2.3 Lists of one element
 
 '(aardvark)
 
@@ -37,6 +39,8 @@
 
 
 ;;; Section 2.4 -  Nested lists
+
+'((blue sky) (grean grass) (brown earth))
 
 '((blue sky)
   (green grass)
@@ -68,6 +72,7 @@
 ;; Yes
 
 
+;;;**************************************
 ;;; Section 2.5 -  Length of Lists
 
 (length '(a b c d))   ; 4
@@ -81,16 +86,28 @@
 ;; 2.5  How many elements do each of the following lists have?
 
 '(open the pod bay doors hal)      ; 6
+
 '((open) (the pod bay doors) hal)  ; 3
+
 '((1 2 3) (4 5 6) (7 8 9) (10 11 12)) ; 4
+
 '((one) for all (and (two (for me)))) ; 4
+
 '((q spades)
   (7 hearts)
   (6 clubs)
-  (2 diamonds))  ; 5
+  (2 diamonds))  ; 4
+
+'((PENNSYLVANIA (THE KEYSTONE STATE))
+  (NEW-JERSEY (THE GARDEN STATE))
+  (MASSACHUSETTS (THE BAY STATE))
+  (FLORIDA (THE SUNSHINE STATE))
+  (NEW-YORK (THE EMPIRE STATE))
+  (INDIANA (THE HOOSIER STATE)))
 ;;    ; 6
 
 
+;;;******************************************
 ;;; Section 2.6   - 'NIL: The Empty List
 
 '()
@@ -103,7 +120,7 @@
 
 ;; 2.6 Match each list on the left with a corresponding list on the right by sub‐
 ;;    substituting NIL for () wherever possible. Pay careful attention to levels of
-;;    parenthesization.
+;;    parenthesisation.
 
 ;; ()        NIL
 ;; (())      (NIL)
@@ -112,6 +129,7 @@
 ;; (() (())) (NIL (NIL))
 
 
+;;;***********************************************
 ;;; Section 2.7 -  Equality of Lists
 
 (equal '(a (b c) d) '(a b (c d)))  ; NIL
@@ -157,24 +175,27 @@
 (my-third-2 '(honk if you like geese))  ; 'YOU
 
 
+;;;**************************************************
 ;;; Section 2.9 -   Functions operate on pointers
+
+(rest '(the big bopper))  ;; (BIG BOPPER)
 
 ;;; Section 2.10 -  Car and Cdr
 ;; CAR stood for Contents of Address portion of Register.
 ;; CDR stood for Contents of Decrement portion of Register.
 
 (car '(the big bopper))  ; THE
-(cdr '(the big bopper))  ;; BIG BOPPER
+(cdr '(the big bopper))  ;; (BIG BOPPER)
 
 
 ;; Section 2.10.1 - The CDR of a Single-Element List
 
-(car '(aardvark))
-(cdr '(aardvark))
-(cdr nil)
+(car '(aardvark))  ; AARDVARK
+(cdr '(aardvark))  ; NIL
+(cdr nil)          ; NIL
 
-(car '((phone home)))  ; (PHONE HOMW)
-(cdr '((phone home)))  ; nil  -- no 'rest
+(car '((phone home)))  ; (PHONE HOME)
+(cdr '((phone home)))  ; NIL  -- no 'rest
 
 
 ;;; Exercises
@@ -187,11 +208,13 @@
 (cdr '(((phone home))))  ;; NIL
 
 
-;; Section 2.10.2 -   Combinations of CAR CDR
+;;;************************************************
+;;; Section 2.10.2 -   Combinations of CAR CDR
 
 (car (cdr '(fee fie foe fum)))  ; FIE
+(cadr '(fee fie foe fum))       ; FIE
+(second '(fee fie foe fum))     ; FIE
 
-(cadr '(fee fie foe fum))  ; FIE
 
 ;;(cdar '(fee fie foe fum))  ; Error
 
@@ -597,6 +620,7 @@
  (list (cons 'a 'b) (cons 'c 'd))
 
 
+;;;****************************************
 ;;; Section 2.18 -  Circular Lists
 
 ;;; Exercises
